@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\PostsCreateRequest;
 use App\Photo;
 use App\Post;
+use App\Role;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -21,8 +23,9 @@ class AdminPostsController extends Controller
     {
         //
         $posts = Post::all();
+        $categories = Category::all();
 
-        return view('admin.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts','categories'));
     }
 
     /**
@@ -33,9 +36,11 @@ class AdminPostsController extends Controller
     public function create()
     {
         //
-        return view('admin.posts.create');
-    }
+        $categories = Category::lists('name', 'id')->all();
 
+        return view('admin.posts.create', compact('categories'));
+
+    }
     /**
      * Store a newly created resource in storage.
      *
